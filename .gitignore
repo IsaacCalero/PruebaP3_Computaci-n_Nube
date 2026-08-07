@@ -1,0 +1,8 @@
+node_modules/
+dist/
+build/
+.env
+*.log
+
+# Documento del enunciado del examen (no es parte del entregable)
+EXAMEN PRÁCTICOFinal_Aws.pdf
