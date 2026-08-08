@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    EC2_INSTANCE_ID: "PON_AQUI_TU_INSTANCE_ID"
+    EC2_INSTANCE_ID: "i-0e6596949c96f6baa"
     AWS_REGION: "us-east-1"
 
 phases:
