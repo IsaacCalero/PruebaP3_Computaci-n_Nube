@@ -1,0 +1,35 @@
+version: 0.2
+
+env:
+  variables:
+    EC2_INSTANCE_ID: "PON_AQUI_TU_INSTANCE_ID"
+    AWS_REGION: "us-east-1"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+
+  build:
+    commands:
+      - echo "== Compilacion (AWS CodeBuild) =="
+      - cd gladiator-fitness/frontend
+      - npm install
+      - npm run build
+      - cd ../backend
+      - npm install
+
+  post_build:
+    commands:
+      - echo "== Despliegue: ejecutando deploy.bat en el servidor via SSM =="
+      - >
+        aws ssm send-command
+        --instance-ids "$EC2_INSTANCE_ID"
+        --document-name "AWS-RunPowerShellScript"
+        --parameters commands="C:\\deploy.bat"
+        --region "$AWS_REGION"
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: gladiator-fitness/frontend/dist
